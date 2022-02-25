@@ -1,11 +1,17 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useImperativeHandle } from "react";
 
 function Item(props) {
-  const [sec, setSec] = useState(5);
+  const [sec, setSec] = useState(15);
 
-  useEffect(() => {
-    setSec(5);
-  }, [props]);
+  // useEffect(() => {
+  //   setSec(5);
+  // }, [props]);
+
+  useImperativeHandle(props.minRef, () => ({
+    minusSec() {
+      setSec(sec - 5);
+    },
+  }));
 
   useEffect(() => {
     let timer;
