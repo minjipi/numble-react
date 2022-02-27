@@ -5,13 +5,11 @@ import Item from "./Item";
 function TestMain() {
   const [stage, setStage] = useState(1);
   const [boxSize, setBoxSize] = useState(170);
-  const [score, setScore] = useState(0);
 
   const minRef = useRef({});
 
   const num = Math.round((stage + 0.5) / 2) + 1;
-  const total = Math.pow(num, 2);
-  // 사각형 총갯수
+  const total = Math.pow(num, 2); // 사각형 총갯수
 
   const target = Math.floor(Math.random() * total);
 
@@ -44,21 +42,22 @@ function TestMain() {
       {arr.map((item, index) =>
         index === target ? (
           (index + 1) % num === 0 ? (
-            <>
+            <Wrapper key={index}>
               <Box
                 color={difColor}
                 boxSize={boxSize}
                 onClick={() => {
                   // console.log("now num: " + num);
-
                   console.log("boxSize" + boxSize);
                   setStage(stage + 1);
+                  minRef.current.clickAnswer();
+                  minRef.current.score();
                 }}
               />
               <br />
-            </>
+            </Wrapper>
           ) : (
-            <>
+            <Wrapper key={index}>
               <Box
                 color={difColor}
                 boxSize={boxSize}
@@ -66,12 +65,14 @@ function TestMain() {
                   // console.log("now num: " + num);
                   setStage(stage + 1);
                   // console.log("boxSize: " + boxSize);
+                  minRef.current.clickAnswer();
+                  minRef.current.score();
                 }}
               />
-            </>
+            </Wrapper>
           )
         ) : (index + 1) % num === 0 ? (
-          <>
+          <Wrapper key={index}>
             <Box
               color={[r, g, b]}
               boxSize={boxSize}
@@ -79,22 +80,27 @@ function TestMain() {
                 minRef.current.minusSec();
               }}
             />
-
             <br />
-          </>
+          </Wrapper>
         ) : (
-          <Box
-            color={[r, g, b]}
-            boxSize={boxSize}
-            onClick={() => {
-              minRef.current.minusSec();
-            }}
-          />
+          <Wrapper key={index}>
+            <Box
+              color={[r, g, b]}
+              boxSize={boxSize}
+              onClick={() => {
+                minRef.current.minusSec();
+              }}
+            />
+          </Wrapper>
         )
       )}
     </>
   );
 }
+
+const Wrapper = styled.div`
+  display: inline;
+`;
 
 const Box = styled.div`
   display: inline-block;
