@@ -1,6 +1,7 @@
 # Numble React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+리액트로 Numble 게임 구현하기!
+useState와 useEffect만 사용해 구현했습니다.
 
 ## Available Scripts
 
